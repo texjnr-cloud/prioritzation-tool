@@ -449,7 +449,7 @@ export default function PrioritizationTool() {
         field: 'confidence',
         label: 'Confidence',
         options: ['Unsure', 'Sure'],
-        description: 'How confident are you?',
+        description: 'How confident are you that this task NEEDS to be done?',
         color: '#4CAF50',
       },
     ];
