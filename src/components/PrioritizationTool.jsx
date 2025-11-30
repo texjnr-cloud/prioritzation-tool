@@ -7,6 +7,7 @@ export default function PrioritizationTool() {
   const [tasks, setTasks] = useState([]);
   const [currentRankingIndex, setCurrentRankingIndex] = useState(0);
   const [results, setResults] = useState([]);
+  const [expandRest, setExpandRest] = useState(false);
 
   // Weight definitions
   const weights = {
@@ -589,8 +590,7 @@ export default function PrioritizationTool() {
     const topTask = results[0];
     const nextTasks = results.slice(1, 4);
     const restTasks = results.slice(4);
-    const [expandRest, setExpandRest] = useState(false);
-
+    
     return (
       <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
         <div style={{ maxWidth: '700px', margin: '0 auto', padding: '60px 20px' }}>
