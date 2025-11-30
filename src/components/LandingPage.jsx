@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Brain, Shield, Zap, CheckCircle2, Lock, BarChart3 } from 'lucide-react';
 
 export default function LandingPage({ onStart }) {
   return (
@@ -66,24 +66,24 @@ export default function LandingPage({ onStart }) {
             marginBottom: '20px',
             lineHeight: '1.2',
           }}>
-            You have too many tasks.
+            Stop second-guessing what matters.
           </h1>
-          <h2 style={{
-            fontSize: 'clamp(28px, 7vw, 42px)',
-            fontWeight: '700',
-            color: '#ff6b35',
-            marginBottom: '24px',
-            lineHeight: '1.3',
-          }}>
-            Tool X tells you exactly what to do next.
-          </h2>
           <p style={{
-            fontSize: 'clamp(14px, 3.5vw, 18px)',
+            fontSize: 'clamp(16px, 4vw, 20px)',
             color: '#666',
+            lineHeight: '1.7',
+            marginBottom: '32px',
+          }}>
+            Too many tasks. Too many priorities. Too much guilt about what you're not doing.
+          </p>
+          <p style={{
+            fontSize: 'clamp(15px, 3.5vw, 18px)',
+            color: '#ff6b35',
+            fontWeight: '700',
             lineHeight: '1.7',
             marginBottom: '40px',
           }}>
-            Stop second-guessing. Stop re-prioritizing. Answer four simple questions about impact, urgency, effort, and confidence. Tool X does the math. You get clarity.
+            Tool X shows you exactly what to do next—based on your own objective criteria, not a black box.
           </p>
           
           <button
@@ -116,7 +116,7 @@ export default function LandingPage({ onStart }) {
           </p>
         </div>
 
-        {/* Screenshot mockup of the app */}
+        {/* Screenshot 1: Ranking Screen */}
         <div style={{
           background: '#fff',
           border: '2px solid #e0e0e0',
@@ -125,7 +125,6 @@ export default function LandingPage({ onStart }) {
           boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
           marginBottom: 'clamp(60px, 15vw, 100px)',
         }}>
-          {/* Ranking screen header */}
           <div style={{
             background: '#f8f9fa',
             padding: 'clamp(20px, 5vw, 32px)',
@@ -156,11 +155,9 @@ export default function LandingPage({ onStart }) {
             </p>
           </div>
 
-          {/* Criteria buttons */}
           <div style={{
             padding: 'clamp(20px, 5vw, 32px)',
           }}>
-            {/* Progress bar */}
             <div style={{
               width: '100%',
               height: '6px',
@@ -354,7 +351,7 @@ export default function LandingPage({ onStart }) {
           </div>
         </div>
 
-        {/* Results preview */}
+        {/* Screenshot 2: Results Screen */}
         <div style={{
           maxWidth: '700px',
           marginBottom: 'clamp(60px, 15vw, 100px)',
@@ -368,7 +365,6 @@ export default function LandingPage({ onStart }) {
             Then you get clarity.
           </h3>
 
-          {/* Results card */}
           <div style={{
             background: 'linear-gradient(135deg, #ff6b35 0%, #ff8a5b 100%)',
             borderRadius: '12px',
@@ -408,7 +404,6 @@ export default function LandingPage({ onStart }) {
             </div>
           </div>
 
-          {/* Next tasks preview */}
           <div style={{
             background: '#fff',
             border: '1px solid #e0e0e0',
@@ -494,7 +489,7 @@ export default function LandingPage({ onStart }) {
         </div>
       </section>
 
-      {/* Why it works */}
+      {/* Positioning: vs Motion */}
       <section style={{
         background: '#fff',
         padding: 'clamp(40px, 10vw, 80px) clamp(12px, 5vw, 40px)',
@@ -509,11 +504,20 @@ export default function LandingPage({ onStart }) {
           <h3 style={{
             fontSize: 'clamp(24px, 6vw, 32px)',
             fontWeight: '800',
-            marginBottom: '40px',
+            marginBottom: '12px',
             textAlign: 'center',
           }}>
-            Why it works
+            Not Motion. Better than Motion.
           </h3>
+          <p style={{
+            fontSize: 'clamp(14px, 3vw, 16px)',
+            color: '#666',
+            textAlign: 'center',
+            marginBottom: '40px',
+            lineHeight: '1.7',
+          }}>
+            Motion uses AI to schedule your tasks. Tool X helps you make objective decisions about what matters most—then shows you exactly what to do next.
+          </p>
 
           <div style={{
             display: 'grid',
@@ -521,55 +525,292 @@ export default function LandingPage({ onStart }) {
             gap: '40px',
           }}>
             <div>
+              <div style={{
+                width: '48px',
+                height: '48px',
+                background: '#ff6b35',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                marginBottom: '16px',
+              }}>
+                <Lock size={24} />
+              </div>
               <h4 style={{
                 fontSize: 'clamp(15px, 3.5vw, 17px)',
                 fontWeight: '700',
                 marginBottom: '12px',
               }}>
-                You decide the criteria
+                Transparent, not a black box
               </h4>
               <p style={{
                 fontSize: 'clamp(13px, 2.5vw, 15px)',
                 color: '#666',
                 lineHeight: '1.6',
               }}>
-                Not an algorithm. Not a guess. Your assessment of what matters.
+                You see exactly why something is ranked #1. No mystery. No algorithm deciding for you.
               </p>
             </div>
 
             <div>
+              <div style={{
+                width: '48px',
+                height: '48px',
+                background: '#ff6b35',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                marginBottom: '16px',
+              }}>
+                <Shield size={24} />
+              </div>
               <h4 style={{
                 fontSize: 'clamp(15px, 3.5vw, 17px)',
                 fontWeight: '700',
                 marginBottom: '12px',
               }}>
-                The math is transparent
+                You control the criteria
               </h4>
               <p style={{
                 fontSize: 'clamp(13px, 2.5vw, 15px)',
                 color: '#666',
                 lineHeight: '1.6',
               }}>
-                See exactly why something is ranked #1. Explain it to your boss.
+                Impact, urgency, effort, confidence. Your assessment. Your priorities. You decide what matters.
               </p>
             </div>
 
             <div>
+              <div style={{
+                width: '48px',
+                height: '48px',
+                background: '#ff6b35',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                marginBottom: '16px',
+              }}>
+                <CheckCircle2 size={24} />
+              </div>
               <h4 style={{
                 fontSize: 'clamp(15px, 3.5vw, 17px)',
                 fontWeight: '700',
                 marginBottom: '12px',
               }}>
-                No more re-prioritizing
+                Trustworthy decisions
               </h4>
               <p style={{
                 fontSize: 'clamp(13px, 2.5vw, 15px)',
                 color: '#666',
                 lineHeight: '1.6',
               }}>
-                Once you've made objective assessments, you stop second-guessing and start working.
+                Explain your priorities to your team. Defend your choices. Everyone understands the logic.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Who it's for */}
+      <section style={{
+        padding: 'clamp(40px, 10vw, 80px) clamp(12px, 5vw, 40px)',
+        maxWidth: '800px',
+        margin: '0 auto',
+        marginBottom: 'clamp(60px, 15vw, 100px)',
+      }}>
+        <h3 style={{
+          fontSize: 'clamp(24px, 6vw, 32px)',
+          fontWeight: '800',
+          marginBottom: '40px',
+          textAlign: 'center',
+        }}>
+          For the overwhelmed
+        </h3>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gap: '32px',
+        }}>
+          <div style={{
+            background: '#fff',
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            padding: '24px',
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              background: '#ff6b35',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              marginBottom: '16px',
+            }}>
+              <Brain size={20} />
+            </div>
+            <h4 style={{
+              fontSize: 'clamp(15px, 3.5vw, 17px)',
+              fontWeight: '700',
+              marginBottom: '8px',
+            }}>
+              Too many tasks
+            </h4>
+            <p style={{
+              fontSize: 'clamp(13px, 2.5vw, 15px)',
+              color: '#666',
+              lineHeight: '1.6',
+            }}>
+              You have 50 things to do and no way to know which matters. Tool X forces clarity.
+            </p>
+          </div>
+
+          <div style={{
+            background: '#fff',
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            padding: '24px',
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              background: '#ff6b35',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              marginBottom: '16px',
+            }}>
+              <Zap size={20} />
+            </div>
+            <h4 style={{
+              fontSize: 'clamp(15px, 3.5vw, 17px)',
+              fontWeight: '700',
+              marginBottom: '8px',
+            }}>
+              Endless re-prioritizing
+            </h4>
+            <p style={{
+              fontSize: 'clamp(13px, 2.5vw, 15px)',
+              color: '#666',
+              lineHeight: '1.6',
+            }}>
+              You change your mind every hour. This feels productive but wastes time. Stop.
+            </p>
+          </div>
+
+          <div style={{
+            background: '#fff',
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            padding: '24px',
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              background: '#ff6b35',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              marginBottom: '16px',
+            }}>
+              <BarChart3 size={20} />
+            </div>
+            <h4 style={{
+              fontSize: 'clamp(15px, 3.5vw, 17px)',
+              fontWeight: '700',
+              marginBottom: '8px',
+            }}>
+              Can't explain priorities
+            </h4>
+            <p style={{
+              fontSize: 'clamp(13px, 2.5vw, 15px)',
+              color: '#666',
+              lineHeight: '1.6',
+            }}>
+              Your boss asks why this is top priority. You have no answer. Tool X gives you one.
+            </p>
+          </div>
+
+          <div style={{
+            background: '#fff',
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            padding: '24px',
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              background: '#ff6b35',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              marginBottom: '16px',
+            }}>
+              <Brain size={20} />
+            </div>
+            <h4 style={{
+              fontSize: 'clamp(15px, 3.5vw, 17px)',
+              fontWeight: '700',
+              marginBottom: '8px',
+            }}>
+              Don't trust your gut
+            </h4>
+            <p style={{
+              fontSize: 'clamp(13px, 2.5vw, 15px)',
+              color: '#666',
+              lineHeight: '1.6',
+            }}>
+              You second-guess every decision. Use objective criteria and remove the guesswork.
+            </p>
+          </div>
+
+          <div style={{
+            background: '#fff',
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            padding: '24px',
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              background: '#ff6b35',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              marginBottom: '16px',
+            }}>
+              <CheckCircle2 size={20} />
+            </div>
+            <h4 style={{
+              fontSize: 'clamp(15px, 3.5vw, 17px)',
+              fontWeight: '700',
+              marginBottom: '8px',
+            }}>
+              Works with your tools
+            </h4>
+            <p style={{
+              fontSize: 'clamp(13px, 2.5vw, 15px)',
+              color: '#666',
+              lineHeight: '1.6',
+            }}>
+              Not replacing Todoist or Asana. The prioritization brain that works alongside them.
+            </p>
           </div>
         </div>
       </section>
