@@ -65,12 +65,13 @@ export default function PrioritizationTool() {
   };
 
   const nextTask = () => {
-    if (currentRankingIndex < tasks.length - 1) {
-      setCurrentRankingIndex(currentRankingIndex + 1);
-    } else {
-      finishRanking();
-    }
-  };
+  if (currentRankingIndex < tasks.length - 1) {
+    setCurrentRankingIndex(currentRankingIndex + 1);
+    window.scrollTo(0, 0);
+  } else {
+    finishRanking();
+  }
+};
 
   const finishRanking = () => {
     const tasksWithScores = tasks.map((task) => {
