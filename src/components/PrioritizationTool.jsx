@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { Plus, Trash2, ArrowRight, RotateCcw, ChevronDown } from 'lucide-react';
 
 export default function PrioritizationTool() {
-  const [screen, setScreen] = useState(1); // 1: input, 2: ranking, 3: results
+  const [screen, setScreen] = useState(1);
   const [taskInput, setTaskInput] = useState('');
   const [tasks, setTasks] = useState([]);
   const [currentRankingIndex, setCurrentRankingIndex] = useState(0);
   const [results, setResults] = useState([]);
   const [expandRest, setExpandRest] = useState(false);
 
-  // Weight definitions
   const weights = {
     impact: { High: 5, Medium: 3, Low: 1 },
     urgency: { Now: 5, Soon: 3, Later: 1 },
@@ -17,7 +16,6 @@ export default function PrioritizationTool() {
     confidence: { Sure: 5, Unsure: 1 },
   };
 
-  // Initialize task with default criteria
   const initializeTask = (name) => ({
     id: Date.now() + Math.random(),
     name,
@@ -29,7 +27,6 @@ export default function PrioritizationTool() {
     },
   });
 
-  // Add single task
   const addTask = () => {
     if (taskInput.trim()) {
       setTasks([...tasks, initializeTask(taskInput)]);
@@ -37,7 +34,6 @@ export default function PrioritizationTool() {
     }
   };
 
-  // Import multiple tasks
   const importTasks = (text) => {
     const names = text
       .split('\n')
@@ -47,32 +43,27 @@ export default function PrioritizationTool() {
     setTasks([...tasks, ...newTasks]);
   };
 
-  // Delete task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  // Calculate priority score using weighted formula
   const calculateScore = (criteria) => {
     const impact = weights.impact[criteria.impact] || 0;
     const urgency = weights.urgency[criteria.urgency] || 0;
     const confidence = weights.confidence[criteria.confidence] || 0;
     const effort = weights.effort[criteria.effort] || 0;
 
-    // Weighted formula: (Impact × Urgency × Confidence) - (Effort penalty)
     const driverScore = impact * urgency * confidence;
     const effortPenalty = effort * 0.5;
     return driverScore - effortPenalty;
   };
 
-  // Update current task criteria
   const updateCriteria = (field, value) => {
     const updatedTasks = [...tasks];
     updatedTasks[currentRankingIndex].criteria[field] = value;
     setTasks(updatedTasks);
   };
 
-  // Move to next task or finish
   const nextTask = () => {
     if (currentRankingIndex < tasks.length - 1) {
       setCurrentRankingIndex(currentRankingIndex + 1);
@@ -81,7 +72,6 @@ export default function PrioritizationTool() {
     }
   };
 
-  // Calculate scores and move to results
   const finishRanking = () => {
     const tasksWithScores = tasks.map((task) => {
       const score = calculateScore(task.criteria);
@@ -93,13 +83,13 @@ export default function PrioritizationTool() {
     setScreen(3);
   };
 
-  // Reset to input screen
   const reset = () => {
     setScreen(1);
     setTasks([]);
     setTaskInput('');
     setCurrentRankingIndex(0);
     setResults([]);
+    setExpandRest(false);
   };
 
   // ============ SCREEN 1: INPUT TASKS ============
@@ -125,13 +115,27 @@ export default function PrioritizationTool() {
           button:active {
             transform: scale(0.95);
           }
+          @media (max-width: 768px) {
+            body {
+              font-size: 14px;
+            }
+          }
+          @media (max-width: 480px) {
+            body {
+              font-size: 13px;
+            }
+          }
         `}</style>
 
-        <div style={{ maxWidth: '700px', margin: '0 auto', padding: '60px 20px' }}>
-          <div style={{ marginBottom: '50px' }}>
+        <div style={{ 
+          maxWidth: '700px', 
+          margin: '0 auto', 
+          padding: 'clamp(20px, 5vw, 60px) clamp(12px, 5vw, 20px)',
+        }}>
+          <div style={{ marginBottom: 'clamp(30px, 8vw, 50px)' }}>
             <h1
               style={{
-                fontSize: '48px',
+                fontSize: 'clamp(32px, 8vw, 48px)',
                 fontWeight: '800',
                 marginBottom: '8px',
                 color: '#1a1a1a',
@@ -139,7 +143,7 @@ export default function PrioritizationTool() {
             >
               What's Next?
             </h1>
-            <p style={{ fontSize: '18px', color: '#666', fontWeight: '400' }}>
+            <p style={{ fontSize: 'clamp(14px, 4vw, 18px)', color: '#666', fontWeight: '400' }}>
               Step 1 of 3: Add your tasks
             </p>
           </div>
@@ -149,14 +153,14 @@ export default function PrioritizationTool() {
               background: '#fff',
               border: '2px solid #e0e0e0',
               borderRadius: '12px',
-              padding: '32px',
+              padding: 'clamp(16px, 5vw, 32px)',
               marginBottom: '24px',
             }}
           >
             <label
               style={{
                 display: 'block',
-                fontSize: '13px',
+                fontSize: 'clamp(11px, 2.5vw, 13px)',
                 fontWeight: '700',
                 color: '#666',
                 marginBottom: '12px',
@@ -166,7 +170,12 @@ export default function PrioritizationTool() {
             >
               Task Name
             </label>
-            <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column',
+              gap: '12px', 
+              marginBottom: '24px',
+            }}>
               <input
                 type="text"
                 value={taskInput}
@@ -179,12 +188,12 @@ export default function PrioritizationTool() {
                 placeholder="Enter a task..."
                 style={{
                   flex: 1,
-                  padding: '14px 16px',
+                  padding: 'clamp(10px, 3vw, 14px) clamp(12px, 3vw, 16px)',
                   background: '#f8f9fa',
                   border: '2px solid #e0e0e0',
                   borderRadius: '8px',
                   color: '#1a1a1a',
-                  fontSize: '15px',
+                  fontSize: 'clamp(13px, 3vw, 15px)',
                   outline: 'none',
                 }}
                 onFocus={(e) => {
@@ -199,17 +208,19 @@ export default function PrioritizationTool() {
               <button
                 onClick={addTask}
                 style={{
-                  padding: '14px 28px',
+                  padding: 'clamp(10px, 3vw, 14px) clamp(16px, 4vw, 28px)',
                   background: '#ff6b35',
                   border: 'none',
                   borderRadius: '8px',
                   color: '#fff',
                   fontWeight: '700',
-                  fontSize: '15px',
+                  fontSize: 'clamp(13px, 3vw, 15px)',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: '8px',
+                  width: '100%',
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.background = '#e85a2a';
@@ -226,7 +237,7 @@ export default function PrioritizationTool() {
               <label
                 style={{
                   display: 'block',
-                  fontSize: '13px',
+                  fontSize: 'clamp(11px, 2.5vw, 13px)',
                   fontWeight: '700',
                   color: '#666',
                   marginBottom: '12px',
@@ -241,12 +252,12 @@ export default function PrioritizationTool() {
                 placeholder="Paste task names (one per line)..."
                 style={{
                   width: '100%',
-                  padding: '12px',
+                  padding: 'clamp(10px, 3vw, 12px)',
                   background: '#f8f9fa',
                   border: '2px solid #e0e0e0',
                   borderRadius: '8px',
                   color: '#1a1a1a',
-                  fontSize: '14px',
+                  fontSize: 'clamp(12px, 3vw, 14px)',
                   minHeight: '100px',
                   fontFamily: 'inherit',
                   outline: 'none',
@@ -272,13 +283,13 @@ export default function PrioritizationTool() {
                 }}
                 style={{
                   width: '100%',
-                  padding: '12px',
+                  padding: 'clamp(10px, 3vw, 12px)',
                   background: '#fff',
                   border: '2px solid #ff6b35',
                   borderRadius: '8px',
                   color: '#ff6b35',
                   fontWeight: '700',
-                  fontSize: '14px',
+                  fontSize: 'clamp(12px, 3vw, 14px)',
                   cursor: 'pointer',
                 }}
                 onMouseEnter={(e) => {
@@ -295,20 +306,19 @@ export default function PrioritizationTool() {
             </div>
           </div>
 
-          {/* Task List */}
           {tasks.length > 0 && (
             <div
               style={{
                 background: '#fff',
                 border: '2px solid #e0e0e0',
                 borderRadius: '12px',
-                padding: '24px',
+                padding: 'clamp(16px, 4vw, 24px)',
                 marginBottom: '24px',
               }}
             >
               <h3
                 style={{
-                  fontSize: '13px',
+                  fontSize: 'clamp(11px, 2.5vw, 13px)',
                   fontWeight: '700',
                   color: '#1a1a1a',
                   marginBottom: '16px',
@@ -326,14 +336,15 @@ export default function PrioritizationTool() {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      padding: '12px 16px',
+                      padding: 'clamp(8px, 2vw, 12px) clamp(10px, 2vw, 16px)',
                       background: '#f8f9fa',
                       borderRadius: '8px',
-                      fontSize: '14px',
+                      fontSize: 'clamp(12px, 3vw, 14px)',
                       color: '#1a1a1a',
+                      gap: '12px',
                     }}
                   >
-                    <span style={{ fontWeight: '500' }}>
+                    <span style={{ fontWeight: '500', flex: 1, minWidth: 0, wordBreak: 'break-word' }}>
                       {idx + 1}. {task.name}
                     </span>
                     <button
@@ -344,9 +355,10 @@ export default function PrioritizationTool() {
                         borderRadius: '6px',
                         color: '#ff4444',
                         cursor: 'pointer',
-                        padding: '6px 10px',
-                        fontSize: '12px',
+                        padding: 'clamp(4px, 1vw, 6px) clamp(6px, 1.5vw, 10px)',
+                        fontSize: 'clamp(10px, 2vw, 12px)',
                         fontWeight: '600',
+                        flexShrink: 0,
                       }}
                       onMouseEnter={(e) => {
                         e.target.style.background = '#ff4444';
@@ -365,7 +377,6 @@ export default function PrioritizationTool() {
             </div>
           )}
 
-          {/* Continue Button */}
           <button
             onClick={() => {
               if (tasks.length > 0) {
@@ -376,13 +387,13 @@ export default function PrioritizationTool() {
             disabled={tasks.length === 0}
             style={{
               width: '100%',
-              padding: '16px',
+              padding: 'clamp(12px, 3vw, 16px)',
               background: tasks.length > 0 ? '#4CAF50' : '#ccc',
               border: 'none',
               borderRadius: '8px',
               color: '#fff',
               fontWeight: '700',
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 3.5vw, 16px)',
               cursor: tasks.length > 0 ? 'pointer' : 'not-allowed',
               display: 'flex',
               alignItems: 'center',
@@ -441,11 +452,15 @@ export default function PrioritizationTool() {
 
     return (
       <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
-        <div style={{ maxWidth: '700px', margin: '0 auto', padding: '60px 20px' }}>
-          <div style={{ marginBottom: '40px' }}>
+        <div style={{ 
+          maxWidth: '700px', 
+          margin: '0 auto', 
+          padding: 'clamp(20px, 5vw, 60px) clamp(12px, 5vw, 20px)',
+        }}>
+          <div style={{ marginBottom: 'clamp(30px, 8vw, 40px)' }}>
             <p
               style={{
-                fontSize: '13px',
+                fontSize: 'clamp(11px, 2.5vw, 13px)',
                 color: '#666',
                 marginBottom: '12px',
                 textTransform: 'uppercase',
@@ -457,17 +472,18 @@ export default function PrioritizationTool() {
             </p>
             <h2
               style={{
-                fontSize: '40px',
+                fontSize: 'clamp(28px, 7vw, 40px)',
                 fontWeight: '800',
                 marginBottom: '8px',
                 color: '#1a1a1a',
+                wordBreak: 'break-word',
               }}
             >
               {currentTask.name}
             </h2>
             <p
               style={{
-                fontSize: '14px',
+                fontSize: 'clamp(12px, 3vw, 14px)',
                 color: '#666',
               }}
             >
@@ -475,14 +491,13 @@ export default function PrioritizationTool() {
             </p>
           </div>
 
-          {/* Progress bar */}
           <div
             style={{
               width: '100%',
               height: '6px',
               background: '#e0e0e0',
               borderRadius: '3px',
-              marginBottom: '40px',
+              marginBottom: 'clamp(30px, 8vw, 40px)',
               overflow: 'hidden',
             }}
           >
@@ -496,15 +511,14 @@ export default function PrioritizationTool() {
             />
           </div>
 
-          {/* Criteria Selection */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', marginBottom: '40px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 5vw, 28px)', marginBottom: 'clamp(30px, 8vw, 40px)' }}>
             {criteriaConfig.map(({ field, label, options, description, color }) => (
               <div key={field}>
                 <div style={{ marginBottom: '16px' }}>
                   <label
                     style={{
                       display: 'block',
-                      fontSize: '15px',
+                      fontSize: 'clamp(13px, 3.5vw, 15px)',
                       fontWeight: '700',
                       color: '#1a1a1a',
                       marginBottom: '4px',
@@ -512,24 +526,28 @@ export default function PrioritizationTool() {
                   >
                     {label}
                   </label>
-                  <p style={{ fontSize: '13px', color: '#666' }}>{description}</p>
+                  <p style={{ fontSize: 'clamp(12px, 3vw, 13px)', color: '#666' }}>{description}</p>
                 </div>
 
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div style={{ 
+                  display: 'flex', 
+                  flexDirection: window.innerWidth < 480 ? 'column' : 'row',
+                  gap: '10px',
+                }}>
                   {options.map((option) => (
                     <button
                       key={option}
                       onClick={() => updateCriteria(field, option)}
                       style={{
                         flex: 1,
-                        padding: '14px',
+                        padding: 'clamp(10px, 2.5vw, 14px)',
                         background:
                           currentTask.criteria[field] === option ? color : '#fff',
                         border: `2px solid ${color}`,
                         borderRadius: '8px',
                         color: currentTask.criteria[field] === option ? '#fff' : color,
                         fontWeight: '700',
-                        fontSize: '14px',
+                        fontSize: 'clamp(12px, 2.5vw, 14px)',
                         cursor: 'pointer',
                       }}
                       onMouseEnter={(e) => {
@@ -551,19 +569,18 @@ export default function PrioritizationTool() {
             ))}
           </div>
 
-          {/* Next Button */}
           <button
             onClick={nextTask}
             disabled={!allCriteriaFilled}
             style={{
               width: '100%',
-              padding: '16px',
+              padding: 'clamp(12px, 3vw, 16px)',
               background: allCriteriaFilled ? '#4CAF50' : '#ccc',
               border: 'none',
               borderRadius: '8px',
               color: '#fff',
               fontWeight: '700',
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 3.5vw, 16px)',
               cursor: allCriteriaFilled ? 'pointer' : 'not-allowed',
               display: 'flex',
               alignItems: 'center',
@@ -590,14 +607,18 @@ export default function PrioritizationTool() {
     const topTask = results[0];
     const nextTasks = results.slice(1, 4);
     const restTasks = results.slice(4);
-    
+
     return (
       <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
-        <div style={{ maxWidth: '700px', margin: '0 auto', padding: '60px 20px' }}>
-          <div style={{ marginBottom: '40px' }}>
+        <div style={{ 
+          maxWidth: '700px', 
+          margin: '0 auto', 
+          padding: 'clamp(20px, 5vw, 60px) clamp(12px, 5vw, 20px)',
+        }}>
+          <div style={{ marginBottom: 'clamp(30px, 8vw, 40px)' }}>
             <p
               style={{
-                fontSize: '13px',
+                fontSize: 'clamp(11px, 2.5vw, 13px)',
                 color: '#666',
                 marginBottom: '12px',
                 textTransform: 'uppercase',
@@ -609,7 +630,7 @@ export default function PrioritizationTool() {
             </p>
             <h1
               style={{
-                fontSize: '42px',
+                fontSize: 'clamp(28px, 7vw, 42px)',
                 fontWeight: '800',
                 color: '#1a1a1a',
               }}
@@ -618,21 +639,20 @@ export default function PrioritizationTool() {
             </h1>
           </div>
 
-          {/* TOP TASK */}
           {topTask && (
             <div
               style={{
                 background: 'linear-gradient(135deg, #ff6b35 0%, #ff8a5b 100%)',
                 borderRadius: '12px',
-                padding: '32px',
-                marginBottom: '32px',
+                padding: 'clamp(16px, 5vw, 32px)',
+                marginBottom: 'clamp(24px, 6vw, 32px)',
                 color: '#fff',
                 boxShadow: '0 10px 30px rgba(255, 107, 53, 0.2)',
               }}
             >
               <p
                 style={{
-                  fontSize: '13px',
+                  fontSize: 'clamp(11px, 2.5vw, 13px)',
                   fontWeight: '700',
                   marginBottom: '8px',
                   opacity: 0.9,
@@ -644,9 +664,10 @@ export default function PrioritizationTool() {
               </p>
               <h2
                 style={{
-                  fontSize: '32px',
+                  fontSize: 'clamp(20px, 6vw, 32px)',
                   fontWeight: '800',
                   marginBottom: '20px',
+                  wordBreak: 'break-word',
                 }}
               >
                 {topTask.name}
@@ -656,9 +677,9 @@ export default function PrioritizationTool() {
                 style={{
                   background: 'rgba(255, 255, 255, 0.15)',
                   borderRadius: '8px',
-                  padding: '16px',
+                  padding: 'clamp(12px, 3vw, 16px)',
                   marginBottom: '0',
-                  fontSize: '13px',
+                  fontSize: 'clamp(12px, 2.5vw, 13px)',
                   lineHeight: '1.8',
                 }}
               >
@@ -678,12 +699,11 @@ export default function PrioritizationTool() {
             </div>
           )}
 
-          {/* NEXT TASKS */}
           {nextTasks.length > 0 && (
-            <div style={{ marginBottom: '32px' }}>
+            <div style={{ marginBottom: 'clamp(24px, 6vw, 32px)' }}>
               <h3
                 style={{
-                  fontSize: '14px',
+                  fontSize: 'clamp(12px, 3vw, 14px)',
                   fontWeight: '700',
                   color: '#1a1a1a',
                   marginBottom: '12px',
@@ -701,10 +721,10 @@ export default function PrioritizationTool() {
                       background: '#fff',
                       border: '2px solid #e0e0e0',
                       borderRadius: '8px',
-                      padding: '16px',
+                      padding: 'clamp(12px, 3vw, 16px)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '16px',
+                      gap: 'clamp(12px, 3vw, 16px)',
                     }}
                   >
                     <div
@@ -725,18 +745,19 @@ export default function PrioritizationTool() {
                     >
                       #{idx + 2}
                     </div>
-                    <div style={{ flex: 1 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
                       <p
                         style={{
-                          fontSize: '15px',
+                          fontSize: 'clamp(13px, 3vw, 15px)',
                           fontWeight: '700',
                           color: '#1a1a1a',
                           marginBottom: '4px',
+                          wordBreak: 'break-word',
                         }}
                       >
                         {task.name}
                       </p>
-                      <p style={{ fontSize: '12px', color: '#666' }}>
+                      <p style={{ fontSize: 'clamp(11px, 2.5vw, 12px)', color: '#666' }}>
                         {task.criteria.impact} impact • {task.criteria.urgency}
                       </p>
                     </div>
@@ -746,14 +767,13 @@ export default function PrioritizationTool() {
             </div>
           )}
 
-          {/* REST OF TASKS */}
           {restTasks.length > 0 && (
-            <div style={{ marginBottom: '32px' }}>
+            <div style={{ marginBottom: 'clamp(24px, 6vw, 32px)' }}>
               <button
                 onClick={() => setExpandRest(!expandRest)}
                 style={{
                   width: '100%',
-                  padding: '14px 16px',
+                  padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)',
                   background: '#fff',
                   border: '2px solid #e0e0e0',
                   borderRadius: '8px',
@@ -761,9 +781,10 @@ export default function PrioritizationTool() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  fontSize: '14px',
+                  fontSize: 'clamp(12px, 3vw, 14px)',
                   fontWeight: '700',
                   color: '#1a1a1a',
+                  gap: '12px',
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.borderColor = '#ff6b35';
@@ -778,6 +799,7 @@ export default function PrioritizationTool() {
                   style={{
                     transform: expandRest ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.2s ease',
+                    flexShrink: 0,
                   }}
                 />
               </button>
@@ -791,7 +813,7 @@ export default function PrioritizationTool() {
                         background: '#fff',
                         border: '1px solid #e0e0e0',
                         borderRadius: '8px',
-                        padding: '12px 16px',
+                        padding: 'clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px)',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '12px',
@@ -799,7 +821,7 @@ export default function PrioritizationTool() {
                     >
                       <div
                         style={{
-                          fontSize: '12px',
+                          fontSize: 'clamp(11px, 2.5vw, 12px)',
                           fontWeight: '700',
                           color: '#999',
                           minWidth: '30px',
@@ -807,12 +829,13 @@ export default function PrioritizationTool() {
                       >
                         #{idx + 5}
                       </div>
-                      <div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
                         <p
                           style={{
-                            fontSize: '14px',
+                            fontSize: 'clamp(12px, 3vw, 14px)',
                             fontWeight: '600',
                             color: '#1a1a1a',
+                            wordBreak: 'break-word',
                           }}
                         >
                           {task.name}
@@ -825,18 +848,17 @@ export default function PrioritizationTool() {
             </div>
           )}
 
-          {/* Reset Button */}
           <button
             onClick={reset}
             style={{
               width: '100%',
-              padding: '16px',
+              padding: 'clamp(12px, 3vw, 16px)',
               background: '#fff',
               border: '2px solid #e0e0e0',
               borderRadius: '8px',
               color: '#1a1a1a',
               fontWeight: '700',
-              fontSize: '16px',
+              fontSize: 'clamp(14px, 3.5vw, 16px)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
