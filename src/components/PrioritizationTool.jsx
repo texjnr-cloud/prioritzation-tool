@@ -27,21 +27,23 @@ export default function PrioritizationTool() {
     },
   });
 
-  const addTask = () => {
-    if (taskInput.trim()) {
-      setTasks([...tasks, initializeTask(taskInput)]);
-      setTaskInput('');
-    }
-  };
+ const addTask = () => {
+  if (taskInput.trim()) {
+    setTasks([...tasks, initializeTask(taskInput)]);
+    setTaskInput('');
+    window.scrollTo(0, 0);
+  }
+};
 
   const importTasks = (text) => {
-    const names = text
-      .split('\n')
-      .map((name) => name.trim())
-      .filter((name) => name);
-    const newTasks = names.map((name) => initializeTask(name));
-    setTasks([...tasks, ...newTasks]);
-  };
+  const names = text
+    .split('\n')
+    .map((name) => name.trim())
+    .filter((name) => name);
+  const newTasks = names.map((name) => initializeTask(name));
+  setTasks([...tasks, ...newTasks]);
+  window.scrollTo(0, 0);
+};
 
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
@@ -380,11 +382,12 @@ export default function PrioritizationTool() {
 
           <button
             onClick={() => {
-              if (tasks.length > 0) {
-                setCurrentRankingIndex(0);
-                setScreen(2);
-              }
-            }}
+  if (tasks.length > 0) {
+    setCurrentRankingIndex(0);
+    setScreen(2);
+    window.scrollTo(0, 0);
+  }
+}}
             disabled={tasks.length === 0}
             style={{
               width: '100%',
