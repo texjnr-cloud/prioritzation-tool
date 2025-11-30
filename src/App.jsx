@@ -1,10 +1,13 @@
-import React from 'react';
-import PrioritizationTool from './components/PrioritizationTool.jsx';
+import React, { useState } from 'react';
+import PrioritizationTool from './components/PrioritizationTool';
+import LandingPage from './components/LandingPage';
 
 export default function App() {
-  return (
-    <div>
-      <PrioritizationTool />
-    </div>
+  const [showApp, setShowApp] = useState(false);
+
+  return showApp ? (
+    <PrioritizationTool />
+  ) : (
+    <LandingPage onStart={() => setShowApp(true)} />
   );
 }
