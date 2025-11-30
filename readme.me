@@ -1,0 +1,112 @@
+# Priority Matrix Tool
+
+A sleek, interactive task prioritization tool that helps you rank your projects and tasks using a four-criteria scoring system.
+
+## Features
+
+- **Three-step workflow**: Input tasks → Rank each task → View results
+- **Four scoring criteria**:
+  - **Impact**: How much does this task matter? (High/Medium/Low)
+  - **Urgency**: How time-sensitive is it? (Now/Soon/Later)
+  - **Effort**: How much work is required? (Easy/Medium/Hard)
+  - **Confidence**: How confident are you? (Sure/Unsure)
+- **Automatic scoring**: Priority = Impact × Urgency × Confidence × Effort
+- **Real-time ranking**: Tasks sorted by priority score
+- **Bulk import**: Add multiple tasks at once
+- **No data persistence**: Fresh start every session
+
+## Scoring Formula
+
+Each criterion has fixed numeric weights:
+
+```
+Impact:     High=5,   Medium=3,   Low=1
+Urgency:    Now=5,    Soon=3,     Later=1
+Effort:     Easy=5,   Medium=3,   Hard=1    (inverted: easier = higher score)
+Confidence: Sure=5,   Unsure=1
+```
+
+**Priority Score = Impact × Urgency × Confidence × Effort**
+
+Maximum possible score: 625 (5×5×5×5)
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/prioritization-tool.git
+cd prioritization-tool
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Start the development server
+```bash
+npm start
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## How to Use
+
+### Screen 1: Input Tasks
+- Type a task name and click "Add" (or press Enter)
+- Add as many tasks as you need
+- Optionally bulk import multiple tasks by pasting them line-by-line
+- Click "Rank Tasks" to proceed
+
+### Screen 2: Rank Each Task
+- For each task, select one option from each criterion
+- All four criteria must be selected before proceeding
+- Progress bar shows your position
+- Click "Next Task" to continue (or "See Results" on the last task)
+
+### Screen 3: Results
+- View all tasks ranked by priority score (highest first)
+- 🥇 🥈 🥉 medals for top 3 tasks
+- See all criteria and final score for each task
+- Click "Start Over" to begin again
+
+## Tech Stack
+
+- **React** - UI framework
+- **Lucide React** - Icons
+- **CSS-in-JS** - Inline styles (no external stylesheet)
+
+## Project Structure
+
+```
+src/
+├── App.jsx                    # Main application wrapper
+└── components/
+    └── PrioritizationTool.jsx # Core component
+```
+
+## Design
+
+- Dark mode interface with cyan/teal accent colors
+- Responsive layout
+- Smooth transitions and animations
+- Clean, minimalist aesthetic
+- Glassmorphic cards
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Contributing
+
+Feel free to fork this repo and submit pull requests for any improvements!
+
+## Contact
+
+Found a bug or have a feature suggestion? Open an issue on GitHub!
